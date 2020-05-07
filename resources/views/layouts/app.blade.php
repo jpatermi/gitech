@@ -32,10 +32,15 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
+                    @auth
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('company.index') }}">
+                                    Compañías
+                                </a>
+                            </li>
+                        </ul>
+                    @endauth
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -65,7 +70,7 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
+                            </>
                         @endguest
                     </ul>
                 </div>

@@ -3,8 +3,13 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\User;
+use App\Company;
+use App\BusinessArea;
+use App\Position;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +24,14 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'company_id'        => $faker->numberBetween(1, Company::count()),
+        'business_area_id'  => $faker->numberBetween(1, BusinessArea::count()),
+        'position_id'       => $faker->numberBetween(1, Position::count()),
+        'email'             => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'password'          => Hash::make('12345678'), // password
+        'remember_token'    => Str::random(10),
+        'api_token'         => Str::random(60),
+        'dni'               => $faker->numerify('##########'),
     ];
 });

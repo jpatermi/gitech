@@ -14,12 +14,17 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->id()->comment('Id del registro');
+            $table->foreignId('company_id')->constrained()->comment('Id de la Compañía');
+            $table->foreignId('business_area_id')->constrained()->comment('Id del Area de Negocios');
+            $table->foreignId('position_id')->constrained()->comment('Id del Cargo');
+            $table->string('email')->unique()->comment('Email que servira de username para el login');
+            $table->timestamp('email_verified_at')->nullable()->comment('Indica si el email fue verificado');
+            $table->string('password')->comment('Clave para el login');
+            $table->string('api_token', 60)->comment('Token de Autenticación para el API');
+            $table->rememberToken()->comment('Indica si se recuerda el login');
+            $table->string('dni', 12)->comment('Documento Nacional de Identidad');
+            $table->foreignId('status_id')->default(1)->comment('Estado del registro');
             $table->timestamps();
         });
     }

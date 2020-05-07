@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::post('/home', 'HomeController@store')->name('home')->middleware('verified');
+Route::delete('/home', 'HomeController@destroy')->name('home')->middleware('verified');
+
+Route::resource('company', 'CompanyController')->middleware('auth');

@@ -22,4 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::get('/user', ['uses'=>'UserController@index']);
 
-Route::apiResource('user', 'UserController');
+/*** Login ***/
+//Route::post('/user/login', ['uses' => 'Api/UserController@loginGetToken'])->middleware('isJson')->name('loginGetToken');
+Route::post('/login', 'Api\UserController@loginGetToken')->middleware('isJson')->name('loginGetToken');
+
+Route::group(['middleware' => ['isJson', 'auth.api']], function () {
+    Route::apiResource('user', 'Api\UserController');
+    Route::apiResource('company', 'Api\CompanyController');
+});
